@@ -29,50 +29,64 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
+        /* Floating Sidebar Navigation */
+        .floating-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
             z-index: 100;
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 1rem 0.5rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 26, 26, 0.95);
             color: var(--text-primary);
-            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
+        .nav-dot:hover::after {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
@@ -87,13 +101,41 @@
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 1000px;
             padding: 2rem;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-color), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            box-shadow: 0 20px 60px rgba(100, 108, 255, 0.3);
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 6vw, 4rem);
             font-weight: 800;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
@@ -103,18 +145,17 @@
         }
 
         .hero h2 {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 300;
             color: var(--text-secondary);
             margin-bottom: 2rem;
         }
 
         .hero-description {
-            max-width: 600px;
-            margin: 0 auto 2rem;
             font-size: 1.2rem;
             color: var(--text-secondary);
             line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
         .cta-button {
@@ -126,13 +167,82 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin-top: 1rem;
         }
 
         .cta-button:hover {
             background: #5a67d8;
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(100, 108, 255, 0.3);
+        }
+
+        /* Experience Strip */
+        .experience-strip {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            margin-bottom: 4rem;
+        }
+
+        .experience-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .experience-title {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-info h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         /* Sections */
@@ -155,6 +265,183 @@
             font-size: 1.2rem;
             color: var(--text-secondary);
             margin-bottom: 4rem;
+        }
+
+        /* Projects Carousel */
+        .projects-carousel {
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .carousel-container {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .projects-track {
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+            min-width: max-content;
+        }
+
+        .project-card {
+            min-width: 350px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--accent-color), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .project-card.expanded .project-description {
+            max-height: 200px;
+            margin-top: 1rem;
+        }
+
+        .expand-hint {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .project-card.expanded .expand-hint {
+            display: none;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .tool-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tool-subtitle {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .tool-card.expanded .tool-description {
+            max-height: 200px;
+        }
+
+        .expand-icon {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card.expanded .expand-icon {
+            transform: rotate(180deg);
         }
 
         /* CV Section */
@@ -182,23 +469,29 @@
         }
 
         .cv-item {
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .cv-item:last-child {
             border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        }
+
+        .cv-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0 -1rem 2rem;
         }
 
         .cv-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 0.5rem;
-            flex-wrap: wrap;
         }
 
         .cv-role {
@@ -214,7 +507,6 @@
             background: rgba(100, 108, 255, 0.1);
             padding: 0.2rem 0.8rem;
             border-radius: 12px;
-            white-space: nowrap;
         }
 
         .cv-company {
@@ -228,6 +520,13 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .cv-item.expanded .cv-details {
+            max-height: 300px;
         }
 
         .cv-details li {
@@ -244,6 +543,66 @@
             position: absolute;
             left: 0;
             top: 0;
+        }
+
+        .expand-hint-cv {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .cv-item.expanded .expand-hint-cv {
+            display: none;
+        }
+
+        /* Skills Collapsible */
+        .skills-toggle {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .skills-toggle:hover {
+            background: #5a67d8;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .skills-list.expanded {
+            max-height: 300px;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: skillFadeIn 0.3s ease forwards;
+        }
+
+        @keyframes skillFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .languages-grid {
@@ -289,145 +648,6 @@
             color: white;
         }
 
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-tag {
-            padding: 0.5rem 1rem;
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .achievements {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .achievement-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-
-        .achievement-icon {
-            font-size: 1.5rem;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .project-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, var(--accent-color), #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Tools Section */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .tool-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .tool-card:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
-        }
-
-        .tool-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .tool-subtitle {
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .tool-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
         /* Footer */
         footer {
             background: var(--secondary-bg);
@@ -454,18 +674,28 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .floating-nav {
+                right: 1rem;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text {
+                text-align: center;
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
+            .floating-nav {
                 display: none;
             }
             
             .section {
                 padding: 4rem 1rem;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
             }
             
             .hero-content {
@@ -481,10 +711,21 @@
                 padding: 1.5rem;
             }
 
-            .cv-header {
+            .experience-timeline {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+                align-items: stretch;
+            }
+
+            .timeline-item {
+                justify-content: flex-start;
+            }
+
+            .projects-track {
+                padding: 0 1rem;
+            }
+
+            .project-card {
+                min-width: 280px;
             }
         }
 
@@ -492,66 +733,200 @@
         html {
             scroll-behavior: smooth;
         }
-
-        /* Animation for cards */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .project-card, .tool-card {
-            animation: fadeInUp 0.6s ease forwards;
-        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Archie McGrath</a>
-            <ul class="nav-links">
-                <li><a href="#cv">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#tools">Tools</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <!-- Floating Sidebar Navigation -->
+    <nav class="floating-nav">
+        <div class="nav-dot" data-label="Home" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" data-label="Projects" onclick="scrollToSection('projects')"></div>
+        <div class="nav-dot" data-label="Tools" onclick="scrollToSection('tools')"></div>
+        <div class="nav-dot" data-label="Experience" onclick="scrollToSection('cv')"></div>
+        <div class="nav-dot" data-label="Contact" onclick="scrollToSection('contact')"></div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-content">
-            <h1>Archie McGrath</h1>
-            <h2>Game Developer & Technical Artist</h2>
-            <div class="hero-description">
-                Currently developing innovative games and creating tools for the industry. Previously worked as a Technical Artist Intern at Meta Meow, collaborating with Square Enix, Game Freak, and ORCA.
+            <div class="hero-text">
+                <h1>Archie McGrath</h1>
+                <h2>Game Developer & Technical Artist</h2>
+                <div class="hero-description">
+                    Currently developing innovative games and creating tools for the industry. TIGA Graduate of the Year with experience at leading studios.
+                </div>
+                <a href="#contact" class="cta-button">Get In Touch</a>
             </div>
-            <a href="#contact" class="cta-button">Get In Touch</a>
+            <div class="hero-visual">
+                <div class="hero-avatar">👨‍💻</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Strip -->
+    <div class="experience-strip">
+        <div class="experience-content">
+            <h3 class="experience-title">Current Journey</h3>
+            <div class="experience-timeline">
+                <div class="timeline-item">
+                    <div class="company-logo">SG</div>
+                    <div class="timeline-info">
+                        <h4>Technical Animator</h4>
+                        <p>Sporty Group • 2025-Present</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-logo">CG</div>
+                    <div class="timeline-info">
+                        <h4>Technical Art Experience</h4>
+                        <p>CG Hub Tokyo • 2025</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-logo">MM</div>
+                    <div class="timeline-info">
+                        <h4>Technical Art Intern</h4>
+                        <p>Meta Meow Tokyo • 2024-25</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-logo">DU</div>
+                    <div class="timeline-info">
+                        <h4>Founder</h4>
+                        <p>Digital Umami • 2023-Present</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Game Projects</h2>
+        <p class="section-subtitle">Click on projects to explore the details</p>
+        
+        <div class="projects-carousel">
+            <div class="carousel-container">
+                <div class="projects-track">
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">🎮</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Digital Narratives of The Amazon</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Mobile game development focusing on gameplay, sound design and localisation. Developed using C# scripting in Unity Engine with emphasis on cultural storytelling and environmental awareness.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">🎯</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Game Jam Winners</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Multiple prize-winning entries across various game jams, showcasing rapid prototyping, creative problem-solving, and innovative gameplay mechanics under tight time constraints.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">🚀</div>
+                        <div class="project-content">
+                            <h3 class="project-title">Technical Art Pipeline</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Art pipeline tools development for AAA game studios including Square Enix, ORCA, and Game Freak. Focus on Blender and Unreal Engine integration with Python scripting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">⭐</div>
+                        <div class="project-content">
+                            <h3 class="project-title">VFX & Shaders</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Advanced shader development and visual effects creation using various engines. Specializing in procedural materials, particle systems, and performance optimization for mobile and desktop platforms.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">🎨</div>
+                        <div class="project-content">
+                            <h3 class="project-title">3D Asset Creation</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Comprehensive 3D asset creation workflow from concept to implementation, including modeling, texturing, rigging, and animation for various game projects and client work.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="toggleExpand(this)">
+                        <div class="project-image">🎪</div>
+                        <div class="project-content">
+                            <h3 class="project-title">ADAS Development</h3>
+                            <p class="expand-hint">Click to see details</p>
+                            <p class="project-description">Car Advanced Driver Assistance Systems creation and shader development in Kanzi Engine with custom language scripting for automotive industry applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn" onclick="scrollCarousel('left')">← Previous</button>
+                <button class="carousel-btn" onclick="scrollCarousel('right')">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Tools Section -->
+    <section class="section" id="tools">
+        <h2 class="section-title">Development Tools</h2>
+        <p class="section-subtitle">Custom tools and utilities I've created for game development</p>
+        
+        <div class="tools-grid">
+            <div class="tool-card" onclick="toggleToolExpand(this)">
+                <div class="tool-header">
+                    <div>
+                        <h3 class="tool-title">Dust Box</h3>
+                        <p class="tool-subtitle">Unreal Engine VFX Blueprint</p>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <p class="tool-description">A comprehensive tool for adding dust and ambient atmospheric effects to Unreal Engine scenes. Features customizable particle systems, real-time adjustments, and optimized performance for production environments with advanced LOD systems.</p>
+            </div>
+            
+            <div class="tool-card" onclick="toggleToolExpand(this)">
+                <div class="tool-header">
+                    <div>
+                        <h3 class="tool-title">Pipeline Tools Suite</h3>
+                        <p class="tool-subtitle">Blender & Unreal Integration</p>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <p class="tool-description">Art pipeline automation tools for seamless workflow between Blender and Unreal Engine. Includes asset optimization, batch processing, and quality control systems used in AAA game development at Meta Meow.</p>
+            </div>
+            
+            <div class="tool-card" onclick="toggleToolExpand(this)">
+                <div class="tool-header">
+                    <div>
+                        <h3 class="tool-title">Shader Graph Utilities</h3>
+                        <p class="tool-subtitle">Custom Shader Collection</p>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <p class="tool-description">A collection of optimized shaders for various visual effects including stylized lighting, procedural textures, and performance-focused mobile rendering solutions. Compatible with Unity and Unreal Engine.</p>
+            </div>
         </div>
     </section>
 
     <!-- CV Section -->
     <section class="section" id="cv">
-        <h2 class="section-title">Experience & Qualifications</h2>
-        <p class="section-subtitle">TIGA Graduate of the Year | First Class Honours in Game Design</p>
+        <h2 class="section-title">Complete Experience</h2>
+        <p class="section-subtitle">Full professional history and qualifications</p>
         
         <div class="cv-grid">
             <!-- Work Experience Column -->
             <div class="cv-column">
                 <h3 class="cv-section-title">Work Experience</h3>
                 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Technical Animator</h4>
                         <span class="cv-period">2025 - Present</span>
                     </div>
                     <p class="cv-company">Sporty Group</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>Rigging, weight painting and animation of in-game characters</li>
                         <li>Implementation and playtesting in Unity Engine</li>
@@ -559,12 +934,13 @@
                     </ul>
                 </div>
 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Technical Art Work Experience</h4>
                         <span class="cv-period">2025</span>
                     </div>
                     <p class="cv-company">CG Hub (Tokyo)</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>Car ADAS creation and shader development in Kanzi Engine</li>
                         <li>Custom language scripting</li>
@@ -572,12 +948,13 @@
                     </ul>
                 </div>
 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Technical Art Internship</h4>
                         <span class="cv-period">2024 - 2025</span>
                     </div>
                     <p class="cv-company">Meta Meow (Tokyo)</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>AAA games outsourcing for Square Enix, ORCA, Game Freak</li>
                         <li>Creating and testing art pipeline tools (Blender, Unreal)</li>
@@ -587,24 +964,26 @@
                     </ul>
                 </div>
 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Game Designer - Digital Narratives of The Amazon</h4>
                         <span class="cv-period">2023</span>
                     </div>
                     <p class="cv-company">Universidad de Las Americas (Quito)</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>Gameplay, sound design and localisation developing a mobile game</li>
                         <li>C# Scripting in Unity Engine for Mobile</li>
                     </ul>
                 </div>
 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Website and Social Media Management</h4>
                         <span class="cv-period">2023 - Present</span>
                     </div>
                     <p class="cv-company">Freelance</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>7,000+ monthly visitor website SEO, content renovations, copywriting</li>
                         <li>Assisting Instagram account with 200,000+ followers</li>
@@ -612,12 +991,13 @@
                     </ul>
                 </div>
 
-                <div class="cv-item">
+                <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Founding Game Designer and Developer</h4>
                         <span class="cv-period">2023 - Present</span>
                     </div>
                     <p class="cv-company">Digital Umami</p>
+                    <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>Company and Project management</li>
                         <li>Unity Engine C# scripting</li>
@@ -637,7 +1017,7 @@
                         <span class="cv-period">2020 - 2023</span>
                     </div>
                     <p class="cv-company">Bournemouth University</p>
-                    <ul class="cv-details">
+                    <ul class="cv-details" style="max-height: none;">
                         <li>First Class Honours</li>
                         <li>TIGA Graduate of the Year</li>
                     </ul>
@@ -672,7 +1052,8 @@
                 </div>
 
                 <h3 class="cv-section-title">Technical Skills</h3>
-                <div class="skills-list">
+                <button class="skills-toggle" onclick="toggleSkills()">Show Technical Skills</button>
+                <div class="skills-list" id="skillsList">
                     <span class="skill-tag">Unity Engine</span>
                     <span class="skill-tag">Unreal Engine</span>
                     <span class="skill-tag">Blender</span>
@@ -685,105 +1066,11 @@
                     <span class="skill-tag">Sound Design</span>
                     <span class="skill-tag">SEO & Marketing</span>
                     <span class="skill-tag">Project Management</span>
+                    <span class="skill-tag">Kanzi Engine</span>
+                    <span class="skill-tag">Perforce</span>
+                    <span class="skill-tag">Git/Github</span>
+                    <span class="skill-tag">Jira</span>
                 </div>
-
-                <h3 class="cv-section-title">Other Achievements</h3>
-                <div class="achievements">
-                    <div class="achievement-item">
-                        <span class="achievement-icon">🏆</span>
-                        <span>Prize-winning game jam entries</span>
-                    </div>
-                    <div class="achievement-item">
-                        <span class="achievement-icon">🎪</span>
-                        <span>Attending industry events</span>
-                    </div>
-                    <div class="achievement-item">
-                        <span class="achievement-icon">🎵</span>
-                        <span>Music and Sound Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <h2 class="section-title">Game Projects</h2>
-        <p class="section-subtitle">Click on a project to learn more about my work</p>
-        
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">🎮</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Alpha</h3>
-                    <p class="project-description">An innovative game project showcasing advanced technical artistry and creative gameplay mechanics.</p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">🎯</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Beta</h3>
-                    <p class="project-description">A collaborative effort featuring stunning visuals and immersive sound design elements.</p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">🚀</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Gamma</h3>
-                    <p class="project-description">Experimental gameplay concepts with cutting-edge technical implementations.</p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">⭐</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Delta</h3>
-                    <p class="project-description">A showcase of advanced visual effects and interactive storytelling techniques.</p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">🎨</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Epsilon</h3>
-                    <p class="project-description">Creative exploration of art direction and technical innovation in game development.</p>
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-image">🎪</div>
-                <div class="project-content">
-                    <h3 class="project-title">Project Zeta</h3>
-                    <p class="project-description">Unique gameplay experience combining traditional elements with modern technology.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Development Tools Section -->
-    <section class="section" id="tools">
-        <h2 class="section-title">Development Tools</h2>
-        <p class="section-subtitle">Custom tools and utilities I've created for game development</p>
-        
-        <div class="tools-grid">
-            <div class="tool-card">
-                <h3 class="tool-title">Dust Box</h3>
-                <p class="tool-subtitle">Unreal Engine VFX Blueprint</p>
-                <p class="tool-description">A comprehensive tool for adding dust and ambient atmospheric effects to Unreal Engine scenes. Features customizable particle systems, real-time adjustments, and optimized performance for production environments.</p>
-            </div>
-            
-            <div class="tool-card">
-                <h3 class="tool-title">Asset Manager Pro</h3>
-                <p class="tool-subtitle">Unity Editor Extension</p>
-                <p class="tool-description">Streamlined asset management system for Unity projects, featuring automated organization, batch processing, and intelligent tagging systems to improve development workflow.</p>
-            </div>
-            
-            <div class="tool-card">
-                <h3 class="tool-title">Shader Graph Utilities</h3>
-                <p class="tool-subtitle">Custom Shader Collection</p>
-                <p class="tool-description">A collection of optimized shaders for various visual effects including stylized lighting, procedural textures, and performance-focused mobile rendering solutions.</p>
             </div>
         </div>
     </section>
@@ -793,7 +1080,8 @@
         <div class="footer-content">
             <div class="contact-info">
                 <h3>Let's Create Something Amazing Together</h3>
-                <p>If you want to learn more about my work, please contact me!</p>
+                <p>Ready to collaborate on innovative game development projects?</p>
+                <p style="margin-top: 1rem; color: var(--accent-color);">archieclarkmcg@gmail.com</p>
             </div>
             <p class="footer-text">
                 © 2024 Archie McGrath. Game Developer & Technical Artist.
@@ -802,68 +1090,101 @@
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // Floating navigation
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
-        });
+        }
 
-        // Add scroll effect to navbar
-        let lastScroll = 0;
+        // Update active nav dot on scroll
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const nav = document.querySelector('nav');
+            const sections = ['hero', 'projects', 'tools', 'cv', 'contact'];
+            const navDots = document.querySelectorAll('.nav-dot');
             
-            if (currentScroll > 100) {
-                nav.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                nav.style.background = 'rgba(10, 10, 10, 0.95)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Project card interactions
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', () => {
-                // Add click animation
-                card.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 150);
+            let current = '';
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
                 
-                // You can add navigation to project details here
-                console.log('Project clicked:', card.querySelector('.project-title').textContent);
-            });
-        });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                    current = sectionId;
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            
+            navDots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (sections[index] === current) {
+                    dot.classList.add('active');
+                }
+            });
         });
 
-        // Observe project cards and tool cards
-        document.querySelectorAll('.project-card, .tool-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'all 0.6s ease';
-            observer.observe(card);
+        // Project carousel
+        function scrollCarousel(direction) {
+            const container = document.querySelector('.carousel-container');
+            const scrollAmount = 370; // card width + gap
+            
+            if (direction === 'left') {
+                container.scrollLeft -= scrollAmount;
+            } else {
+                container.scrollLeft += scrollAmount;
+            }
+        }
+
+        // Toggle project expand
+        function toggleExpand(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // Toggle tool expand
+        function toggleToolExpand(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // Toggle CV item expand
+        function toggleCVExpand(item) {
+            item.classList.toggle('expanded');
+        }
+
+        // Toggle skills
+        function toggleSkills() {
+            const skillsList = document.getElementById('skillsList');
+            const button = document.querySelector('.skills-toggle');
+            
+            skillsList.classList.toggle('expanded');
+            
+            if (skillsList.classList.contains('expanded')) {
+                button.textContent = 'Hide Technical Skills';
+                // Animate skill tags
+                const tags = skillsList.querySelectorAll('.skill-tag');
+                tags.forEach((tag, index) => {
+                    setTimeout(() => {
+                        tag.style.animationDelay = `${index * 0.1}s`;
+                    }, 0);
+                });
+            } else {
+                button.textContent = 'Show Technical Skills';
+            }
+        }
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set first nav dot as active
+            document.querySelector('.nav-dot').classList.add('active');
         });
     </script>
 </body>
