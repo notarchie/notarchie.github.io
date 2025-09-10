@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archie McGrath | Game Developer & Technical Artist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #646cff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #333;
+            --hover-bg: #252525;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #1a1a2e 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(100, 108, 255, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+        }
+
+        /* CV Section */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .cv-column {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .cv-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .cv-item {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cv-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .cv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cv-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .cv-period {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            background: rgba(100, 108, 255, 0.1);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .cv-company {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .cv-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cv-details li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .cv-details li::before {
+            content: '▸';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .languages-grid {
+            display: grid;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .language-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .language-level {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .language-level.native {
+            background: #10b981;
+            color: white;
+        }
+
+        .language-level.fluent {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .language-level.beginner {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .achievements {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .achievement-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--accent-color), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .tool-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .tool-subtitle {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cv-column {
+                padding: 1.5rem;
+            }
+
+            .cv-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card, .tool-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Archie McGrath</a>
+            <ul class="nav-links">
+                <li><a href="#cv">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Archie McGrath</h1>
+            <h2>Game Developer & Technical Artist</h2>
+            <div class="hero-description">
+                Currently developing innovative games and creating tools for the industry. Previously worked as a Technical Artist Intern at Meta Meow, collaborating with Square Enix, Game Freak, and ORCA.
+            </div>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- CV Section -->
+    <section class="section" id="cv">
+        <h2 class="section-title">Experience & Qualifications</h2>
+        <p class="section-subtitle">TIGA Graduate of the Year | First Class Honours in Game Design</p>
+        
+        <div class="cv-grid">
+            <!-- Work Experience Column -->
+            <div class="cv-column">
+                <h3 class="cv-section-title">Work Experience</h3>
+                
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Technical Animator</h4>
+                        <span class="cv-period">2025 - Present</span>
+                    </div>
+                    <p class="cv-company">Sporty Group</p>
+                    <ul class="cv-details">
+                        <li>Rigging, weight painting and animation of in-game characters</li>
+                        <li>Implementation and playtesting in Unity Engine</li>
+                        <li>Using Github, Slack, Jira, Confluence</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Technical Art Work Experience</h4>
+                        <span class="cv-period">2025</span>
+                    </div>
+                    <p class="cv-company">CG Hub (Tokyo)</p>
+                    <ul class="cv-details">
+                        <li>Car ADAS creation and shader development in Kanzi Engine</li>
+                        <li>Custom language scripting</li>
+                        <li>Using Slack</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Technical Art Internship</h4>
+                        <span class="cv-period">2024 - 2025</span>
+                    </div>
+                    <p class="cv-company">Meta Meow (Tokyo)</p>
+                    <ul class="cv-details">
+                        <li>AAA games outsourcing for Square Enix, ORCA, Game Freak</li>
+                        <li>Creating and testing art pipeline tools (Blender, Unreal)</li>
+                        <li>Python, Blender Procedural Node scripting</li>
+                        <li>Shaders, materials and VFX</li>
+                        <li>Using Perforce, ClickUp, Chatwork, Confluence</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Game Designer - Digital Narratives of The Amazon</h4>
+                        <span class="cv-period">2023</span>
+                    </div>
+                    <p class="cv-company">Universidad de Las Americas (Quito)</p>
+                    <ul class="cv-details">
+                        <li>Gameplay, sound design and localisation developing a mobile game</li>
+                        <li>C# Scripting in Unity Engine for Mobile</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Website and Social Media Management</h4>
+                        <span class="cv-period">2023 - Present</span>
+                    </div>
+                    <p class="cv-company">Freelance</p>
+                    <ul class="cv-details">
+                        <li>7,000+ monthly visitor website SEO, content renovations, copywriting</li>
+                        <li>Assisting Instagram account with 200,000+ followers</li>
+                        <li>Promoting an Amazon, Sunday Times and Water Stones Best Seller</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Founding Game Designer and Developer</h4>
+                        <span class="cv-period">2023 - Present</span>
+                    </div>
+                    <p class="cv-company">Digital Umami</p>
+                    <ul class="cv-details">
+                        <li>Company and Project management</li>
+                        <li>Unity Engine C# scripting</li>
+                        <li>3D Asset creation and implementation</li>
+                        <li>Game Marketing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Education & Skills Column -->
+            <div class="cv-column">
+                <h3 class="cv-section-title">Education</h3>
+                
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">BSc Game Design</h4>
+                        <span class="cv-period">2020 - 2023</span>
+                    </div>
+                    <p class="cv-company">Bournemouth University</p>
+                    <ul class="cv-details">
+                        <li>First Class Honours</li>
+                        <li>TIGA Graduate of the Year</li>
+                    </ul>
+                </div>
+
+                <h3 class="cv-section-title">Languages</h3>
+                <div class="languages-grid">
+                    <div class="language-item">
+                        <span class="language-name">English</span>
+                        <span class="language-level native">Native</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Spanish</span>
+                        <span class="language-level fluent">Fluent</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Japanese</span>
+                        <span class="language-level fluent">Fluent</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Italian</span>
+                        <span class="language-level beginner">Beginner</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Portuguese</span>
+                        <span class="language-level beginner">Beginner</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Mandarin</span>
+                        <span class="language-level beginner">Beginner</span>
+                    </div>
+                </div>
+
+                <h3 class="cv-section-title">Technical Skills</h3>
+                <div class="skills-list">
+                    <span class="skill-tag">Unity Engine</span>
+                    <span class="skill-tag">Unreal Engine</span>
+                    <span class="skill-tag">Blender</span>
+                    <span class="skill-tag">C# Scripting</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Shaders & VFX</span>
+                    <span class="skill-tag">Technical Animation</span>
+                    <span class="skill-tag">3D Asset Creation</span>
+                    <span class="skill-tag">Game Design</span>
+                    <span class="skill-tag">Sound Design</span>
+                    <span class="skill-tag">SEO & Marketing</span>
+                    <span class="skill-tag">Project Management</span>
+                </div>
+
+                <h3 class="cv-section-title">Other Achievements</h3>
+                <div class="achievements">
+                    <div class="achievement-item">
+                        <span class="achievement-icon">🏆</span>
+                        <span>Prize-winning game jam entries</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="achievement-icon">🎪</span>
+                        <span>Attending industry events</span>
+                    </div>
+                    <div class="achievement-item">
+                        <span class="achievement-icon">🎵</span>
+                        <span>Music and Sound Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Game Projects</h2>
+        <p class="section-subtitle">Click on a project to learn more about my work</p>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🎮</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Alpha</h3>
+                    <p class="project-description">An innovative game project showcasing advanced technical artistry and creative gameplay mechanics.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🎯</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Beta</h3>
+                    <p class="project-description">A collaborative effort featuring stunning visuals and immersive sound design elements.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🚀</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Gamma</h3>
+                    <p class="project-description">Experimental gameplay concepts with cutting-edge technical implementations.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">⭐</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Delta</h3>
+                    <p class="project-description">A showcase of advanced visual effects and interactive storytelling techniques.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🎨</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Epsilon</h3>
+                    <p class="project-description">Creative exploration of art direction and technical innovation in game development.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">🎪</div>
+                <div class="project-content">
+                    <h3 class="project-title">Project Zeta</h3>
+                    <p class="project-description">Unique gameplay experience combining traditional elements with modern technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Tools Section -->
+    <section class="section" id="tools">
+        <h2 class="section-title">Development Tools</h2>
+        <p class="section-subtitle">Custom tools and utilities I've created for game development</p>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3 class="tool-title">Dust Box</h3>
+                <p class="tool-subtitle">Unreal Engine VFX Blueprint</p>
+                <p class="tool-description">A comprehensive tool for adding dust and ambient atmospheric effects to Unreal Engine scenes. Features customizable particle systems, real-time adjustments, and optimized performance for production environments.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Asset Manager Pro</h3>
+                <p class="tool-subtitle">Unity Editor Extension</p>
+                <p class="tool-description">Streamlined asset management system for Unity projects, featuring automated organization, batch processing, and intelligent tagging systems to improve development workflow.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Shader Graph Utilities</h3>
+                <p class="tool-subtitle">Custom Shader Collection</p>
+                <p class="tool-description">A collection of optimized shaders for various visual effects including stylized lighting, procedural textures, and performance-focused mobile rendering solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Let's Create Something Amazing Together</h3>
+                <p>If you want to learn more about my work, please contact me!</p>
+            </div>
+            <p class="footer-text">
+                © 2024 Archie McGrath. Game Developer & Technical Artist.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const nav = document.querySelector('nav');
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                nav.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Project card interactions
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Add click animation
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 150);
+                
+                // You can add navigation to project details here
+                console.log('Project clicked:', card.querySelector('.project-title').textContent);
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe project cards and tool cards
+        document.querySelectorAll('.project-card, .tool-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
