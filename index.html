@@ -269,38 +269,175 @@
 
         /* Projects Carousel */
         .projects-carousel {
-            position: relative;
-            margin-top: 4rem;
+          position: relative;
+          margin-top: 4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 420px;
         }
 
-        .carousel-container {
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding: 1rem 0;
+        .mosaic-arrow {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            margin: 0 1rem;
+            z-index: 10;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .mosaic-arrow:first-child {
+            left: 0;
+        }
+        .mosaic-arrow:last-child {
+            right: 0;
+        }
+        }
+        .mosaic-arrow:hover {
+            background: var(--accent-color);
+            color: white;
         }
 
-        .carousel-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .projects-track {
-            display: flex;
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
-            padding: 0 2rem;
-            min-width: max-content;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 420px;
+            align-items: stretch;
+            position: relative;
+            padding-bottom: 40px;
         }
-
         .project-card {
-            min-width: 350px;
+            opacity: 1;
+            transition: opacity 0.5s, filter 0.5s;
+        }
+        .project-card.center-hidden {
+            display: none !important;
+        }
+        .project-card {
             background: var(--secondary-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: box-shadow 0.3s cubic-bezier(.4,0,.2,1);
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 340px;
+            height: 340px;
+        }
+        .project-card.expanded {
+            box-shadow: 0 8px 32px rgba(100,108,255,0.12);
+            z-index: 2;
+        }
+        .project-card.expanded.jungle-hero-card .gif img {
+            max-width: 50%;
+            max-height: 180px;
+            display: block;
+            margin: 0 auto;
+        }
+        .project-card .project-image {
+          height: 320px;
+          flex-shrink: 0;
+          transition: height 0.3s cubic-bezier(.4,0,.2,1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 7rem;
+          line-height: 1;
+          user-select: none;
+          overflow: hidden;
+        }
+        .project-card .project-content {
+            padding: 0.5rem 1.2rem 0.7rem 1.2rem;
+            flex: 0 0 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: flex-basis 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        .project-card .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0rem 0 rem 0;
+            text-align: center;
+            display: block;
+            padding-top: 1.2rem;
+            padding-bottom: 1rem;
+        }
+        .project-card .project-subtitle {
+            color: var(--accent-color);
+            font-size: 1rem;
+            text-align: center;
+            padding: 0.2rem 0 0.2rem 0;
+            display: block;
+        }
+        .project-card .expand-hint,
+        .project-card .project-description {
+            display: none;
+        }
+        .project-card.expanded {
+            box-shadow: 0 8px 32px rgba(100,108,255,0.12);
+            z-index: 10;
+            min-height: 320px;
+            grid-column: 2 / span 3;
+            height: auto;
+            position: relative;
+        }
+        .project-card.expanded .project-image {
+          height: 100px;
+          font-size: 4rem;
+        }
+        .project-card.expanded .project-content {
+            flex: 1;
+            padding: 1.2rem;
+            position: relative;
+        }
+        .return-btn {
+            position: absolute;
+            bottom: 18px;
+            right: 18px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 0.4rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 20;
+        }
+        }
+        .project-card.expanded .project-title {
+            margin-bottom: 0.5rem;
+        }
+        .project-card.expanded .expand-hint {
+            display: block;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+        .project-card.expanded .project-description {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-height: none;
+            margin-top: 1rem;
+            overflow: visible;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
         }
 
         .project-card:hover {
@@ -309,25 +446,30 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, var(--accent-color), #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            position: relative;
+        .project-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             overflow: hidden;
+            transition: box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 380px;
+            height: 380px;
+        }
+        .project-card.expanded .project-image {
+            height: 180px;
         }
 
         .project-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
+            flex: 1;
         }
 
         .project-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
@@ -358,27 +500,15 @@
             display: none;
         }
 
-        /* Carousel Navigation */
-        .carousel-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+        @media (max-width: 1024px) {
+            .mosaic-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
-
-        .carousel-btn {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-btn:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
+        @media (max-width: 768px) {
+            .mosaic-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Tools Section */
@@ -414,6 +544,8 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
+            padding-top: 1.2rem;
+            padding-bottom: 0.3rem;
         }
 
         .tool-subtitle {
@@ -427,11 +559,63 @@
             line-height: 1.6;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding-bottom: 0;
         }
 
         .tool-card.expanded .tool-description {
-            max-height: 200px;
+            max-height: 800px;
+            padding-bottom: 2rem;
+            font-size: 1.15rem;
+        }
+
+        .tool-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 380px;
+            height: 380px;
+        }
+        .tool-card.expanded {
+            box-shadow: 0 8px 32px rgba(100,108,255,0.12);
+            z-index: 2;
+            min-height: 420px;
+            height: auto;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .tool-image {
+            height: 320px;
+            flex-shrink: 0;
+            transition: height 0.3s cubic-bezier(.4,0,.2,1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            line-height: 1;
+            user-select: none;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--accent-color), #7c3aed);
+            border-radius: 12px 12px 0 0;
+            color: white;
+        }
+        .tool-card.expanded .tool-image {
+            height: 380px;
+        }
+            /* Prevent all tool cards from expanding to the same height */
+            .tools-grid {
+                align-items: start;
+            }
+        /* Prevent all tool cards from expanding to the same height */
+        .tools-grid {
+            align-items: start;
         }
 
         .expand-icon {
@@ -442,8 +626,10 @@
 
         .tool-card.expanded .expand-icon {
             transform: rotate(180deg);
+             }
+        .tool-card.center-hidden {
+            display: none !important;
         }
-
         /* CV Section */
         .cv-grid {
             display: grid;
@@ -556,6 +742,18 @@
         }
 
         /* Skills Collapsible */
+            .skills-list-wide {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-top: 1rem;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
         .skills-toggle {
             background: var(--accent-color);
             color: white;
@@ -750,14 +948,15 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Archie McGrath</h1>
-                <h2>Game Developer & Technical Artist</h2>
+                <h2>Game Developer
+                </h2>
                 <div class="hero-description">
-                    Currently developing innovative games and creating tools for the industry. TIGA Graduate of the Year with experience at leading studios.
+                    Currently a Technical Artist at Feral Interactive.
                 </div>
                 <a href="#contact" class="cta-button">Get In Touch</a>
             </div>
             <div class="hero-visual">
-                <div class="hero-avatar">👨‍💻</div>
+                <div class="hero-avatar"><img src="assets/images/myface.png" alt="Archie McGrath" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"></div>
             </div>
         </div>
     </section>
@@ -770,30 +969,31 @@
                 <div class="timeline-item">
                     <div class="company-logo">SG</div>
                     <div class="timeline-info">
+                        <h4>Technical Artist</h4>
+                        <p>Feral Interactive • OCT 2025~</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-logo">SG</div>
+                    <div class="timeline-info">
                         <h4>Technical Animator</h4>
-                        <p>Sporty Group • 2025-Present</p>
+                        <p>Sporty Group • JUN2025-OCT2025</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="company-logo">CG</div>
                     <div class="timeline-info">
                         <h4>Technical Art Experience</h4>
-                        <p>CG Hub Tokyo • 2025</p>
+                        <p>CG Hub • APR 2025</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="company-logo">MM</div>
                     <div class="timeline-info">
                         <h4>Technical Art Intern</h4>
-                        <p>Meta Meow Tokyo • 2024-25</p>
+                        <p>Meta Meow • MAR2024-MAR2025</p>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="company-logo">DU</div>
-                    <div class="timeline-info">
-                        <h4>Founder</h4>
-                        <p>Digital Umami • 2023-Present</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -805,68 +1005,143 @@
         <p class="section-subtitle">Click on projects to explore the details</p>
         
         <div class="projects-carousel">
-            <div class="carousel-container">
-                <div class="projects-track">
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">🎮</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Digital Narratives of The Amazon</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Mobile game development focusing on gameplay, sound design and localisation. Developed using C# scripting in Unity Engine with emphasis on cultural storytelling and environmental awareness.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">🎯</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Game Jam Winners</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Multiple prize-winning entries across various game jams, showcasing rapid prototyping, creative problem-solving, and innovative gameplay mechanics under tight time constraints.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">🚀</div>
-                        <div class="project-content">
-                            <h3 class="project-title">Technical Art Pipeline</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Art pipeline tools development for AAA game studios including Square Enix, ORCA, and Game Freak. Focus on Blender and Unreal Engine integration with Python scripting.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">⭐</div>
-                        <div class="project-content">
-                            <h3 class="project-title">VFX & Shaders</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Advanced shader development and visual effects creation using various engines. Specializing in procedural materials, particle systems, and performance optimization for mobile and desktop platforms.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">🎨</div>
-                        <div class="project-content">
-                            <h3 class="project-title">3D Asset Creation</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Comprehensive 3D asset creation workflow from concept to implementation, including modeling, texturing, rigging, and animation for various game projects and client work.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card" onclick="toggleExpand(this)">
-                        <div class="project-image">🎪</div>
-                        <div class="project-content">
-                            <h3 class="project-title">ADAS Development</h3>
-                            <p class="expand-hint">Click to see details</p>
-                            <p class="project-description">Car Advanced Driver Assistance Systems creation and shader development in Kanzi Engine with custom language scripting for automotive industry applications.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-nav">
-                <button class="carousel-btn" onclick="scrollCarousel('left')">← Previous</button>
-                <button class="carousel-btn" onclick="scrollCarousel('right')">Next →</button>
-            </div>
+            <button class="mosaic-arrow" onclick="mosaicPrev()">&#8592;</button>
+            <div class="mosaic-grid" id="mosaicGrid"></div>
+            <button class="mosaic-arrow" onclick="mosaicNext()">&#8594;</button>
         </div>
+
+        <!-- Dynamic Game Projects Grid -->
+        <div id="game-projects-list" style="margin-top:2rem;"></div>
+
+        <!-- Hide the list of all game projects below carousel -->
+        <style>
+            #game-projects-list { display: none !important; }
+        </style>
+
+        <script>
+        // Load game projects from assets/cms.json for the mosaic carousel
+        let projects = [];
+        let mosaicIndex = 0;
+        const mosaicGrid = document.getElementById('mosaicGrid');
+        const mosaicCols = () => window.innerWidth < 768 ? 1 : (window.innerWidth < 1024 ? 2 : 3);
+
+        function renderMosaic() {
+            const visible = 5;
+            mosaicGrid.innerHTML = '';
+            let cardRefs = [];
+            for (let i = 0; i < visible; i++) {
+                let projIdx = (mosaicIndex + i) % projects.length;
+                if (projIdx < 0) projIdx += projects.length;
+                const p = projects[projIdx];
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                if (p.title && p.title.toLowerCase().includes('jungle hero')) {
+                    card.classList.add('jungle-hero-card');
+                }
+                // Fade logic: center 3 fully opaque, 2 outer faded
+                if (i === 0 || i === 4) {
+                    card.classList.add('fade');
+                    card.style.opacity = '0.3';
+                } else {
+                    card.style.opacity = '1';
+                }
+                // Mark center cards for later
+                if (i === 1 || i === 2 || i === 3) {
+                    card.classList.add('center');
+                }
+                // Allow left, center, right center cards to expand
+                if (i === 1 || i === 2 || i === 3) {
+                    let expanded = false;
+                    card.onclick = (e) => {
+                        // If not already center, shift carousel so this card is center
+                        if (i !== 2) {
+                            mosaicIndex = (mosaicIndex + (i - 2) + projects.length) % projects.length;
+                            renderMosaic();
+                            setTimeout(() => {
+                                const centerCard = mosaicGrid.children[2];
+                                if (centerCard) centerCard.click();
+                            }, 0);
+                            return;
+                        }
+                        // If already expanded, collapse
+                        if (card.classList.contains('expanded')) {
+                            card.classList.remove('expanded');
+                            document.querySelectorAll('.project-card.center-hidden').forEach(c => c.classList.remove('center-hidden'));
+                            expanded = false;
+                            return;
+                        }
+                        // Expand
+                        document.querySelectorAll('.project-card.expanded').forEach(c => c.classList.remove('expanded'));
+                        document.querySelectorAll('.project-card.center-hidden').forEach(c => c.classList.remove('center-hidden'));
+                        card.classList.add('expanded');
+                        expanded = true;
+                        // Hide other center cards
+                        cardRefs.forEach((ref, idx) => {
+                            if ((idx === 1 || idx === 3) && ref !== card) {
+                                ref.classList.add('center-hidden');
+                            }
+                        });
+                        // Add return button
+                        const content = card.querySelector('.project-content');
+                        if (content && !content.querySelector('.return-btn')) {
+                            const btn = document.createElement('button');
+                            btn.className = 'return-btn';
+                            btn.textContent = 'Return';
+                            btn.onclick = (ev) => {
+                                ev.stopPropagation();
+                                card.classList.remove('expanded');
+                                document.querySelectorAll('.project-card.center-hidden').forEach(c => c.classList.remove('center-hidden'));
+                                expanded = false;
+                            };
+                            content.appendChild(btn);
+                        }
+                    };
+                } else {
+                    card.onclick = null;
+                }
+                card.innerHTML = `
+                    <div class="gif"><img src="${p.gif}" alt="${p.title} GIF" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">${p.title}</h3>
+                        <p class="project-subtitle">Team size: ${p['team-size']}</p>
+                        <p class="expand-hint">Click to see details</p>
+                        <p class="project-description"><strong>Description:</strong> ${p.desc}</p>
+                        <p class="project-role"><strong>My role(s):</strong> ${p.role}</p>
+                    </div>
+                `;
+                mosaicGrid.appendChild(card);
+                cardRefs.push(card);
+            }
+        }
+
+        function mosaicPrev() {
+            mosaicIndex = (mosaicIndex - 1 + projects.length) % projects.length;
+            renderMosaic();
+        }
+        function mosaicNext() {
+            mosaicIndex = (mosaicIndex + 1) % projects.length;
+            renderMosaic();
+        }
+
+        // Fetch projects from JSON and initialize carousel
+        fetch('assets/cms.json')
+            .then(response => response.json())
+            .then(data => {
+                projects = data.filter(item => item.category === 'game' && item.gif);
+                // Preload all GIFs
+                projects.forEach(p => {
+                    if (p.gif) {
+                        const img = new Image();
+                        img.src = p.gif;
+                    }
+                });
+                mosaicIndex = 0;
+                renderMosaic();
+            });
+
+        window.addEventListener('resize', renderMosaic);
+        document.addEventListener('DOMContentLoaded', renderMosaic);
+        </script>
     </section>
 
     <!-- Development Tools Section -->
@@ -875,38 +1150,70 @@
         <p class="section-subtitle">Custom tools and utilities I've created for game development</p>
         
         <div class="tools-grid">
-            <div class="tool-card" onclick="toggleToolExpand(this)">
-                <div class="tool-header">
-                    <div>
-                        <h3 class="tool-title">Dust Box</h3>
-                        <p class="tool-subtitle">Unreal Engine VFX Blueprint</p>
-                    </div>
-                    <span class="expand-icon">▼</span>
                 </div>
-                <p class="tool-description">A comprehensive tool for adding dust and ambient atmospheric effects to Unreal Engine scenes. Features customizable particle systems, real-time adjustments, and optimized performance for production environments with advanced LOD systems.</p>
-            </div>
-            
-            <div class="tool-card" onclick="toggleToolExpand(this)">
-                <div class="tool-header">
-                    <div>
-                        <h3 class="tool-title">Pipeline Tools Suite</h3>
-                        <p class="tool-subtitle">Blender & Unreal Integration</p>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <p class="tool-description">Art pipeline automation tools for seamless workflow between Blender and Unreal Engine. Includes asset optimization, batch processing, and quality control systems used in AAA game development at Meta Meow.</p>
-            </div>
-            
-            <div class="tool-card" onclick="toggleToolExpand(this)">
-                <div class="tool-header">
-                    <div>
-                        <h3 class="tool-title">Shader Graph Utilities</h3>
-                        <p class="tool-subtitle">Custom Shader Collection</p>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <p class="tool-description">A collection of optimized shaders for various visual effects including stylized lighting, procedural textures, and performance-focused mobile rendering solutions. Compatible with Unity and Unreal Engine.</p>
-            </div>
+                <script>
+                        // Dynamically render tools from JSON with improved expansion logic
+                        fetch('assets/cms.json')
+                            .then(response => response.json())
+                            .then(data => {
+                                const tools = data.filter(item => item.category === 'tool');
+                                const grid = document.querySelector('.tools-grid');
+                                let expandedIndex = null;
+                                function renderTools() {
+                                    grid.innerHTML = '';
+                                    tools.forEach((tool, i) => {
+                                        const card = document.createElement('div');
+                                        card.className = 'tool-card';
+                                        if (expandedIndex === i) {
+                                            card.classList.add('expanded');
+                                        } else if (expandedIndex !== null) {
+                                            card.classList.add('center-hidden');
+                                        }
+                                        card.innerHTML = `
+                                            <div class="tool-image"><img src="${tool.image}" alt="${tool.title}" style="width:100%;height:100%;object-fit:cover;"></div>
+                                            <div class="tool-header">
+                                                <div>
+                                                    <h3 class="tool-title">${tool.title}</h3>
+                                                </div>
+                                                <span class="expand-icon">▼</span>
+                                            </div>
+                                            <p class="tool-description">
+                                                ${tool.desc.replace(/\\n/g, '<br>')}
+                                                <br>
+                                                <a href="${tool.link}" target="_blank" class="cta-button" style="margin-top:1rem;display:inline-block;">View Tool</a>
+                                            </p>
+                                        `;
+                                        card.onclick = function(e) {
+                                            if (expandedIndex === i) {
+                                                expandedIndex = null;
+                                                renderTools();
+                                            } else {
+                                                expandedIndex = i;
+                                                renderTools();
+                                            }
+                                        };
+                                        if (expandedIndex === i) {
+                                            // Add return button
+                                            const desc = card.querySelector('.tool-description');
+                                            if (desc && !desc.querySelector('.return-btn')) {
+                                                const btn = document.createElement('button');
+                                                btn.className = 'return-btn';
+                                                btn.textContent = 'Return';
+                                                btn.style = 'margin-top:1rem;display:inline-block;';
+                                                btn.onclick = function(ev) {
+                                                    ev.stopPropagation();
+                                                    expandedIndex = null;
+                                                    renderTools();
+                                                };
+                                                desc.appendChild(btn);
+                                            }
+                                        }
+                                        grid.appendChild(card);
+                                    });
+                                }
+                                renderTools();
+                            });
+                        </script>
         </div>
     </section>
 
@@ -914,7 +1221,7 @@
     <section class="section" id="cv">
         <h2 class="section-title">Complete Experience</h2>
         <p class="section-subtitle">Full professional history and qualifications</p>
-        
+        <a href="assets\pdfs\Archie_CV_ENG.pdf" class="cta-button" download style="display:block;max-width:250px;margin:0 auto 2rem auto;text-align:center;">Download My CV (PDF)</a>
         <div class="cv-grid">
             <!-- Work Experience Column -->
             <div class="cv-column">
@@ -922,8 +1229,22 @@
                 
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
-                        <h4 class="cv-role">Technical Animator</h4>
+                        <h4 class="cv-role">Technical Artist</h4>
                         <span class="cv-period">2025 - Present</span>
+                    </div>
+                    <p class="cv-company">Feral Interactive</p>
+                    <p class="expand-hint-cv">Click to see details</p>
+                    <ul class="cv-details">
+                        <li>Sole in-house technical art support, guiding design, art and engineering teams on AAA projects across platforms</li>
+                        <li>Asset optimisation and integration using profiling, GPU techniques and pipeline tool development (Python, Blender, MEL)</li>
+                        <li>Creation of 3D assets, rigs, shaders, VFX and UI with focus on performance, quality and efficiency</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item" onclick="toggleCVExpand(this)">
+                    <div class="cv-header">
+                        <h4 class="cv-role">Technical Animator</h4>
+                        <span class="cv-period">JUN 2025 - OCT 2025</span>
                     </div>
                     <p class="cv-company">Sporty Group</p>
                     <p class="expand-hint-cv">Click to see details</p>
@@ -937,7 +1258,7 @@
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Technical Art Work Experience</h4>
-                        <span class="cv-period">2025</span>
+                        <span class="cv-period">APR 2025</span>
                     </div>
                     <p class="cv-company">CG Hub (Tokyo)</p>
                     <p class="expand-hint-cv">Click to see details</p>
@@ -951,23 +1272,23 @@
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Technical Art Internship</h4>
-                        <span class="cv-period">2024 - 2025</span>
+                        <span class="cv-period">MAR 2024 - MAR 2025</span>
                     </div>
                     <p class="cv-company">Meta Meow (Tokyo)</p>
                     <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
-                        <li>AAA games outsourcing for Square Enix, ORCA, Game Freak</li>
-                        <li>Creating and testing art pipeline tools (Blender, Unreal)</li>
-                        <li>Python, Blender Procedural Node scripting</li>
+                        <li>AAA games outsourcing projects for Square Enix, ORCA and GameFreak</li>
+                        <li>Development and testing of art pipeline tools in Blender and Unreal</li>
+                        <li>Python scripting and Blender procedural node workflows</li>
                         <li>Shaders, materials and VFX</li>
-                        <li>Using Perforce, ClickUp, Chatwork, Confluence</li>
+                        <li>Shader, material and VFX creation</li>
                     </ul>
                 </div>
 
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
                         <h4 class="cv-role">Game Designer - Digital Narratives of The Amazon</h4>
-                        <span class="cv-period">2023</span>
+                        <span class="cv-period">JUN 2023</span>
                     </div>
                     <p class="cv-company">Universidad de Las Americas (Quito)</p>
                     <p class="expand-hint-cv">Click to see details</p>
@@ -979,10 +1300,10 @@
 
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
-                        <h4 class="cv-role">Website and Social Media Management</h4>
-                        <span class="cv-period">2023 - Present</span>
+                        <h4 class="cv-role">Websites, Social Media, Content Creation</h4>
+                        <span class="cv-period">NOV 2023~</span>
                     </div>
-                    <p class="cv-company">Freelance</p>
+                    <p class="cv-company">Freelance (Remote)</p>
                     <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>7,000+ monthly visitor website SEO, content renovations, copywriting</li>
@@ -993,10 +1314,10 @@
 
                 <div class="cv-item" onclick="toggleCVExpand(this)">
                     <div class="cv-header">
-                        <h4 class="cv-role">Founding Game Designer and Developer</h4>
-                        <span class="cv-period">2023 - Present</span>
+                        <h4 class="cv-role">Indie Game Designer and Developer</h4>
+                        <span class="cv-period">SEPT 2023~</span>
                     </div>
-                    <p class="cv-company">Digital Umami</p>
+                    <p class="cv-company">Digital Umami (Remote)</p>
                     <p class="expand-hint-cv">Click to see details</p>
                     <ul class="cv-details">
                         <li>Company and Project management</li>
@@ -1020,6 +1341,19 @@
                     <ul class="cv-details" style="max-height: none;">
                         <li>First Class Honours</li>
                         <li>TIGA Graduate of the Year</li>
+                    </ul>
+                    <br>
+                <div class="cv-item">
+                    <div class="cv-header">
+                        <h4 class="cv-role">A-Levels</h4>
+                        <span class="cv-period">2020 - 2023</span>
+                    </div>
+                    <p class="cv-company">Reigate Grammar School</p>
+                    <ul class="cv-details" style="max-height: none;">
+                        <li>Politics    A</li>
+                        <li>Spanish     A</li>
+                        <li>Psychology  B</li>
+
                     </ul>
                 </div>
 
@@ -1050,27 +1384,6 @@
                         <span class="language-level beginner">Beginner</span>
                     </div>
                 </div>
-
-                <h3 class="cv-section-title">Technical Skills</h3>
-                <button class="skills-toggle" onclick="toggleSkills()">Show Technical Skills</button>
-                <div class="skills-list" id="skillsList">
-                    <span class="skill-tag">Unity Engine</span>
-                    <span class="skill-tag">Unreal Engine</span>
-                    <span class="skill-tag">Blender</span>
-                    <span class="skill-tag">C# Scripting</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Shaders & VFX</span>
-                    <span class="skill-tag">Technical Animation</span>
-                    <span class="skill-tag">3D Asset Creation</span>
-                    <span class="skill-tag">Game Design</span>
-                    <span class="skill-tag">Sound Design</span>
-                    <span class="skill-tag">SEO & Marketing</span>
-                    <span class="skill-tag">Project Management</span>
-                    <span class="skill-tag">Kanzi Engine</span>
-                    <span class="skill-tag">Perforce</span>
-                    <span class="skill-tag">Git/Github</span>
-                    <span class="skill-tag">Jira</span>
-                </div>
             </div>
         </div>
     </section>
@@ -1079,12 +1392,12 @@
     <footer id="contact">
         <div class="footer-content">
             <div class="contact-info">
-                <h3>Let's Create Something Amazing Together</h3>
-                <p>Ready to collaborate on innovative game development projects?</p>
+                <h3>Get in touch!</h3>
+                <p>I'm always interested in new opportunities</p>
                 <p style="margin-top: 1rem; color: var(--accent-color);">archieclarkmcg@gmail.com</p>
             </div>
             <p class="footer-text">
-                © 2024 Archie McGrath. Game Developer & Technical Artist.
+                © 2025 Archie McGrath
             </p>
         </div>
     </footer>
@@ -1139,8 +1452,14 @@
             card.classList.toggle('expanded');
         }
 
-        // Toggle tool expand
+        // Toggle tool expand (accordion behavior)
         function toggleToolExpand(card) {
+            const allCards = document.querySelectorAll('.tool-card');
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('expanded');
+                }
+            });
             card.classList.toggle('expanded');
         }
 

@@ -1,0 +1,23 @@
+category,title,gif,role,team-size,desc,link
+game,Centurion Centenary Showdown (Game Jam),,"Character art, UI, Sound",4,A 1v1 in which players must spear each other off the edge of the colosseum. ,
+game,Connect 4 Ever (Game Jam),,"UI design and Implementation
+",4,Connect 4 with special cards introducing new counters and abilities,
+game,Roll of the Necrochancer (WIP),,"Gameplay design, VFX, Sound, Playtesting",6,Wave survival rogue-like,
+game,E-Scape (Game Jam),,"AI and Character scripting, Music, Sound",4,Beat 'em up. Escape the cloning facility and take down the hostile AI that control it,
+game,Hammer Slammers (WIP),,Gameplay Design,4,"A free-for-all time-based shooter, ricochet your bullets and time your attacks to kill your friends!",
+game,Final Major Project (University),,Everything,1,"A game alongside a 10,000 word dissertation created to measure the difference in player experience whether using diegetic or non-diegetic navigational cues. Certain assets are paid for, including the soundtrack and certain UI elements.",
+game,Just-Ice (Game Jam),,"Character design, sound, music, level design
+",5,A platformer in which the player uses heating and freezing to traverse the levels,
+game,Parry-lel (Game Jam),,"Gameplay, Character scripting, Sounds
+",4,An arcade game in which the player deflects the projectiles to stay alive,
+game,Jungle Hero (Digital Narratives of The Amazon),,"Sounds, Music Sound implementation, Translation",8,"With a production time of one week, we created a game focused on promoting animal conservation in the Amazonian regions of Ecuador. 
+As the only native English speaker on the team, I helped localise to English, I composed the music from scratch and sourced all SFX including real recordings from our time in The Amazon Jungle",
+tool,Dust Box,,,,"Unreal Engine VFX Blueprint 
+
+A tool for adding dust and ambient effects to Unreal Engine scenes",https://www.fab.com/listings/eea0aa29-bbf9-4f26-9188-92b615bea487
+tool,Cliff Cooker,,,,"Blender Geometry Node Setup for Procedural Cliff Generation 
+
+Cliff Cooker is a Geometry Nodes tool which generates cliff and rock formations from simple base meshes. By adjusting base shapes and scattered meshes, you can customize the parameters to achieve a wide variety of cliff styles. ",https://superhivemarket.com/products/cliff-cooker
+tool,Wood Works,,,,Procedural Wood Painting Toolkit,https://superhivemarket.com/products/wood-works
+,,,,,,
+,,,,,"Using an intuitive painting mode, you can effortlessly add color to models just like painting real wooden figures to perfectly match your creative vision. You can also add wooden carving to your models for added realism and create flat cutouts from 3D models. Wood Works handles all aspects of materials, textures, and UVs, allowing you to focus entirely on unleashing your creativity without any technical distractions.",
